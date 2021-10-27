@@ -1,0 +1,14 @@
+{
+  "version": "0.1",
+  "description": "Media from VK.com",
+  "allowedResources": [
+    "*://vk.com"
+  ],
+  "icon": "img.png",
+  "services": [
+    {
+      "mediaType": "music",
+      "script": "vk_com.js"
+    }
+  ]
+}

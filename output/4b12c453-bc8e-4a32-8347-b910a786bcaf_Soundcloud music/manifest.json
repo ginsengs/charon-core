@@ -1,0 +1,15 @@
+{
+  "version": "0.1",
+  "name": "Soundcloud music",
+  "description": "Download music from soundcloud",
+  "icon": "icon.png",
+  "services": [
+    {
+      "mediaType": "music",
+      "script": "soundcloud_com.js"
+    }
+  ],
+  "allowed_resources": [
+    "https://soundcloud.com"
+  ]
+}

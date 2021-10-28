@@ -1,5 +1,6 @@
 import { ExtensionLoader, ExtensionLoaderError } from '../lib/extension-loader';
 import * as AdmZip from 'adm-zip';
+import { pathExists, remove } from 'fs-extra';
 
 const makeExtension = (manifest?: any) => {
   const zip = new AdmZip();
@@ -33,6 +34,12 @@ describe('Extension loader', () => {
   test('Extension output', async () => {
     const zip = makeExtension();
     const loader = new ExtensionLoader(zip.toBuffer());
-    await loader.extract('./output');
-  }, 25000);
+    const str = await loader.extract('./test/output');
+
+    let has = await pathExists('./test/output');
+    expect(has).toBe(true);
+    await remove('./test/output');
+    has = await pathExists('./test/output');
+    expect(has).toBe(false);
+  }, 125000);
 });

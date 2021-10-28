@@ -3,6 +3,7 @@ import * as AdmZip from 'adm-zip';
 import { v4 as uuid } from 'uuid';
 import { ensureDir } from 'fs-extra';
 import * as path from 'path';
+import { promisify } from 'util';
 
 const ajv = new Ajv();
 
@@ -53,7 +54,7 @@ export class ExtensionLoader {
     return true;
   }
 
-  async extract(outputPath: string): Promise<string> {
+  async extract(outputPath: string): Promise<void> {
     this.verifyThrow();
     const entry = this.archive.getEntry('manifest.json');
     const manifest = JSON.parse(entry.getData().toString());
@@ -62,12 +63,6 @@ export class ExtensionLoader {
     const pkgPath = path.join(outputPath, pkgName);
 
     await ensureDir(pkgPath);
-
-    return new Promise((resolve, reject) => {
-      this.archive.extractAllToAsync(pkgPath, false, (err) => {
-        err && reject(err);
-        resolve(pkgPath);
-      });
-    });
+    return this.archive.extractAllTo(pkgPath, false);
   }
 }

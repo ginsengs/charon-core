@@ -1,20 +1,19 @@
-import { executeVirtualCode } from "../lib/sandbox";
+import { executeVirtualCode, Sandbox } from '../lib/sandbox';
+import * as fs from 'fs-extra';
 
-test("Sandbox check", async () => {
-  const code = `
-    function main() {
-        return new Promise((resolve, reject) => {
-            fs.readdir('.', (err, files) => {
-                resolve(files);
-            });
-        });
-    }
-    `;
-  const promise = executeVirtualCode(code, {
-    fs: require("fs"),
+test('Sandbox check', async () => {
+  const sandbox = new Sandbox();
+  sandbox.bindModule('fs', fs);
+
+  await new Promise((resolve) => {
+    sandbox.on('message', (msg) => {
+      console.log('emitter', msg);
+      resolve('');
+    });
+    sandbox.execute(`
+      runtime.emit('message', 'hello!!!!');
+    `);
   });
-  const res = await promise;
-  console.log(res);
 });
 
 test.todo('Not allowed eval');

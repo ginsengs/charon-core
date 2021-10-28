@@ -1,1 +1,1 @@
-export type MediaType = 'music' | 'movies' | 'video' | 'games';
+export type MediaType = 'music' | 'movies' | 'videos' | 'games';

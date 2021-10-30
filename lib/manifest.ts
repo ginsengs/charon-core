@@ -7,8 +7,12 @@ export type Service = {
 
 export class Manifest {
   name: string;
+
   version: string;
+
   description?: string;
+
   icon?: string;
+
   services: Service[];
 }

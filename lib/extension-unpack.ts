@@ -11,8 +11,8 @@ export class ExtensionUnpackError extends Error {}
 export class ExtensionUnpack {
   protected archive: AdmZip;
 
-  public constructor(path: string | Buffer) {
-    this.archive = new AdmZip(path);
+  public constructor(extPath: string | Buffer) {
+    this.archive = new AdmZip(extPath);
   }
 
   /**
@@ -36,9 +36,9 @@ export class ExtensionUnpack {
       type: 'object',
       properties: {
         name: { type: 'string' },
-        version: { type: 'string' }
+        version: { type: 'string' },
       },
-      required: ['name', 'version']
+      required: ['name', 'version'],
     };
     let validate = ajv.compile(schema);
     let json = null;

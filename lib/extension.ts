@@ -1,4 +1,4 @@
-import { Manifest, Service } from './manifest';
+import { Manifest } from './manifest';
 import { readJSON } from 'fs-extra';
 
 export class Extension {
@@ -6,9 +6,9 @@ export class Extension {
   }
 
   public runServices() {
-    for (let service of this.manifest.services) {
-      service.script
-    }
+    // for (let service of this.manifest.services) {
+    //   service.script;
+    // }
   }
 
   static async scan(manifestPath: string) {

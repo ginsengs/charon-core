@@ -7,6 +7,6 @@ describe('Extension', () => {
   test('Scan', async () => {
     const extension = await Extension.scan(manifest);
 
-    console.log(extension.name);
+    console.log(extension);
   });
 });

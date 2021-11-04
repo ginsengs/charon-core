@@ -61,16 +61,18 @@ export class ExtensionUnpack {
   /**
    * @description Unpin the extension to the catalog
    **/
-  async extract(outputPath: string): Promise<string> {
+  async extract(outputPath: string): Promise<{path: string, uuid: string}> {
     this.verifyThrow();
     const entry = this.archive.getEntry('manifest.json');
     const rawManifest = JSON.parse(entry.getData().toString());
     const id = uuid();
-    const pkgName = `${id}_${rawManifest.name}`;
-    const pkgPath = path.join(outputPath, pkgName);
+    const pkgPath = path.join(outputPath, id);
 
     await ensureDir(pkgPath);
     this.archive.extractAllTo(pkgPath, false);
-    return path.join(pkgPath, pkgName);
+    return {
+      uuid: id,
+      path: pkgPath
+    };
   }
 }
